@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast - Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>SkyCast Weather App</h1>
+    <form method="POST">
+        <label for="city">Enter City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="unit">Select Unit:</label>
+        <input type="radio" id="celsius" name="unit" value="metric" checked> Celsius
+        <input type="radio" id="fahrenheit" name="unit" value="imperial"> Fahrenheit
+
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather %}
+    <div>
+        <h2>Weather in {{ weather['name'] }}</h2>
+        <p>Temperature: {{ weather['main']['temp'] }}°</p>
+        <p>Humidity: {{ weather['main']['humidity'] }}%</p>
+        <p>Condition: {{ weather['weather'][0]['description'] }}</p>
+        <p>Wind Speed: {{ weather['wind']['speed'] }} m/s</p>
+        <a href="{{ url_for('forecast', city=weather['name']) }}">View 5-day Forecast</a>
+        <a href="{{ url_for('add_favorite', city=weather['name']) }}">Add to Favorites</a>
+    </div>
+    {% endif %}
+
+    <h2>Favorites</h2>
+    <ul>
+        {% for city in favorites %}
+        <li>{{ city }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('plot_temperature') }}">Plot Temperature</a>
+</body>
+</html>

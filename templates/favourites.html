@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyCast - Favorites</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>SkyCast</h1>
+        <p>Your Favorite Locations</p>
+    </div>
+
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/favorites">Favorites</a>
+        <a href="/clear_favorites">Clear Favorites</a>
+    </div>
+
+    <div class="container">
+        <h2>Your Favorite Cities</h2>
+        <ul>
+            {% for city in favorites %}
+                <li>{{ city }}</li>
+            {% else %}
+                <li>No favorites saved yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
